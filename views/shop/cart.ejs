@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../partials/head") %> 
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+<body>
+    <%- include("../partials/navigation") %> 
+    <main>
+        <% if (items.length > 0) { %>
+            <h1>You have (<%= items.length %>) items in the cart.</h1>
+            <ul>
+                <% items.forEach(item => { %> 
+                    <li>
+                        <%= item.product.name %> - $ <%= item.product.price %> (<%= item.quantity %>) 
+                        <form action="/cart/delete" method="POST">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <input type="hidden" name="productId" value="<%= item.product._id %>">
+                            <button class="btn">X</button>
+                        </form>
+                    </li>
+                <% }) %> 
+            </ul>
+
+            <h3>Total: $<%= totalPrice %> </h3>
+
+            <form action="/orders" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" class="btn">Order now !</button>
+            </form>
+        <% } else { %> 
+            <h1>Cart is empty.</h1>
+        <% } %> 
+    </main>
+    <%- include("../partials/footer") %> 
+</body>
+</html>

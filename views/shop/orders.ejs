@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../partials/head") %> 
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+    <%- include("../partials/navigation") %> 
+    <main>
+        <% if (orders.length <= 0) { %>
+            <h1>No orders here for now ...</h1>
+        <% } else { %>
+            <ul>
+                <% orders.forEach(order => { %>
+                    <li>
+                        <h1>Order id: #<%= order._id %></h1>
+                        <ul>
+                            <% order.items.forEach(item => { %>
+                                <li><%= item.product.name %> (<%= item.quantity %>) </li>
+                            <% }) %> 
+                        </ul>
+                    </li>     
+                <% }) %> 
+            </ul>
+        <% } %> 
+    </main>
+
+    <%- include("../partials/footer") %> 
+</body>
+
+</html>

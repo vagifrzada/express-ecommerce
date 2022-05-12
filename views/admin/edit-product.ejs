@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../partials/head") %>
+    <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/forms.css">
+</head>
+
+<body>
+    <%- include("../partials/navigation") %>
+    <main>
+        <form class="product-form" action="/admin/products/<%= product._id %>/update" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken  %>">
+            <div class="form-control">
+                <label for="title">Name</label>
+                <input type="text" name="name" id="name" placeholder="Please enter product name" value="<%= product.name %>">
+            </div>
+
+            <div class="form-control">
+                <label for="image">Image url</label>
+                <input type="text" name="image" id="image" placeholder="Please enter image url" value="<%= product.image %>">
+            </div>
+
+            <div class="form-control">
+                <label for="price">Price</label>
+                <input type="number" name="price" placeholder="Please enter price" step="0.01" value="<%= product.price %>">
+            </div>
+
+            <div class="form-control">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" rows="5"><%- product.description %></textarea>
+            </div>
+
+            <button type="submit" class="btn">Save changes</button>
+        </form>
+    </main>
+</body>
+
+</html>

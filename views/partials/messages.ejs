@@ -1,0 +1,22 @@
+<% if (flash.success) { %> 
+    <div class="user-message user-message--success">
+        <%= flash.success  %>
+    </div> 
+<% } %>
+
+<% if (flash.error) { %> 
+    <div class="user-message user-message--error">
+        <%= flash.error  %>
+    </div> 
+<% } %>
+
+
+<% if (validation.failed) { %> 
+    <div class="user-message user-message--error">
+        <ul>
+            <% validation.errors().forEach(error => { %>
+                <li><%- error %></li> 
+            <% }) %>
+        </ul>
+    </div> 
+<% } %>

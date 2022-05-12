@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../partials/head") %> 
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+    <%- include("../partials/navigation") %> 
+    <main class="centered">
+            <h1><%= product.name %></h1>
+            <div class="image">
+                <img src="<%= product.image %>" width="300" height="300" alt="<%= product.name %>">
+            </div>
+            <h2>$<%= product.price %></h2>
+            <p>
+                <%= product.description %> 
+            </p>
+
+            <form action="/cart" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="hidden" name="productId" value="<%= product._id %>">
+                <button type="submit" class="btn">Add to cart</button>
+            </form>
+    </main>
+
+    <%- include("../partials/footer") %> 
+</body>
+
+</html>

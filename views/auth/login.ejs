@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../partials/head") %>
+    <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/forms.css">
+</head>
+
+<body>
+    <%- include("../partials/navigation") %>
+    <main>
+        <form class="product-form" action="/auth/login" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken  %>">
+            <div class="form-control">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Please enter email" value="<%= old('email') %>">
+            </div>
+
+            <div class="form-control">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Please enter password">
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="centered">
+            <a href="/auth/reset-password">Reset password</a>
+        </div>
+    </main>
+</body>
+
+</html>

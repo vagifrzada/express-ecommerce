@@ -1,0 +1,52 @@
+<header class="main-header">
+    <nav class="main-header__nav">
+        <ul class="main-header__item-list">
+            <!-- User links -->
+            <li class="main-header__item">
+                <a class="<%= (path === " /" ? "active" : '' ) %>" href="/">Shop</a>
+            </li>
+            <% if (isLoggedIn) { %>
+                <li class="main-header__item">
+                    <a class="<%= (path === " /cart" ? "active" : '' ) %>" href="/cart">Cart</a>
+                </li>
+                <li class="main-header__item">
+                    <a class="<%= (path === " /orders" ? "active" : '' ) %>" href="/orders">Orders</a>
+                </li>
+
+                <!-- Admin links -->
+                <li class="main-header__item">
+                    <a href="/admin/products" class="<%= (path === " /admin/products" ? "active" : '' ) %>">
+                        Admin products
+                    </a>
+                </li>
+                <li class="main-header__item">
+                    <a href="/admin/products/create" class="<%= (path === " /admin/products/create" ? "active" : '' )
+                        %>">
+                        Add Product
+                    </a>
+                </li>
+                |
+                <li class="main-header__item">
+                    <span style="color: white;">Welcome, <%= user.name %> </span>
+                    <form action="/auth/logout" method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+                <% } else { %>
+                    <li class="main-header__item">
+                        <a href="/auth/login" class="<%= (path === " /auth/login" ? "active" : '' ) %>">
+                            Login
+                        </a>
+                    </li>
+                    <li class="main-header__item">
+                        <a href="/auth/register" class="<%= (path === " /auth/register" ? "active" : '' ) %>">
+                            Register
+                        </a>
+                    </li>
+                <% } %>
+        </ul>
+    </nav>
+</header>
+
+<%- include("./messages") %> 
