@@ -10,24 +10,25 @@
     <%- include("../partials/navigation") %>
     <main>
         <form class="product-form" action="/admin/products" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="form-control">
                 <label for="title">Name</label>
-                <input type="text" name="name" id="name" placeholder="Please enter product name">
+                <input type="text" name="name" id="name" placeholder="Please enter product name" value="<%= old('name') %>">
             </div>
 
             <div class="form-control">
                 <label for="image">Image url</label>
-                <input type="text" name="image" id="image" placeholder="Please enter image url">
+                <input type="text" name="image" id="image" placeholder="Please enter image url" value="<%= old('image') %>">
             </div>
 
             <div class="form-control">
                 <label for="price">Price</label>
-                <input type="number" name="price" placeholder="Please enter price" step="0.01">
+                <input type="number" name="price" placeholder="Please enter price" step="0.01" value="<%= old('price') %>">
             </div>
 
             <div class="form-control">
                 <label for="description">Description</label>
-                <textarea name="description" id="description" rows="5"></textarea>
+                <textarea name="description" id="description" rows="5"><%- old('description') %></textarea>
             </div>
 
             <button type="submit">Add Product</button>
