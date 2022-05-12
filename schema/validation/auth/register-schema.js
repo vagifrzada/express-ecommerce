@@ -24,18 +24,22 @@ module.exports = [
         .withMessage("Email can't be empty")
         .isEmail()
         .withMessage("Email must be in a valid format")
+        .normalizeEmail()
         .custom(checkUniqueEmailValidator),
 
     body("password")
         .notEmpty()
+        .trim()
         .withMessage("Password can't be empty")
         .isLength({ min: 6 })
         .withMessage("Password should be minimum 6 characters long"),
 
-    body("passwordConfirmation").custom((value, { req }) => {
-        if (value !== req.body.password) {
-            throw new Error("Passwords have to match")
-        }
-        return true
-    }),
+    body("passwordConfirmation")
+        .trim()
+        .custom((value, { req }) => {
+            if (value !== req.body.password) {
+                throw new Error("Passwords have to match")
+            }
+            return true
+        }),
 ]
