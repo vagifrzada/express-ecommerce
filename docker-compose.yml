@@ -12,6 +12,7 @@ services:
             - .:/app
         networks:
             - node-ecommerce
+        command: npm start
         tty: true
         depends_on:
             - db
