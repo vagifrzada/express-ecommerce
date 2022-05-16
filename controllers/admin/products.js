@@ -20,6 +20,7 @@ exports.store = async (req, res) => {
         await ProductService.createProduct(req.body, req.user)
     } catch (err) {
         console.log(err)
+        req.flash("error", err.message)
     }
 
     return res.redirect("/admin/products")

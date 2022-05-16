@@ -54,6 +54,12 @@ app.use("/auth", require("./routes/auth"))
 
 // Registering error handler
 app.use(errorController.getNotFoundPage)
+app.use((err, req, res, next) => {
+    return res.render("errors/500", {
+        title: "Server error",
+        message: err.message,
+    })
+})
 ;(async () => {
     try {
         await mongoose.connect(process.env.DB_URL)
