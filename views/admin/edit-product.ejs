@@ -9,7 +9,7 @@
 <body>
     <%- include("../partials/navigation") %>
     <main>
-        <form class="product-form" action="/admin/products/<%= product._id %>/update" method="POST">
+        <form class="product-form" action="/admin/products/<%= product._id %>/update" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="<%= csrfToken  %>">
             <div class="form-control">
                 <label for="title">Name</label>
@@ -17,9 +17,14 @@
             </div>
 
             <div class="form-control">
+                <label for="image">Image</label>
+                <input type="file" name="image" id="image">
+            </div>
+
+            <!-- <div class="form-control">
                 <label for="image">Image url</label>
                 <input type="text" name="image" id="image" placeholder="Please enter image url" value="<%= product.image %>">
-            </div>
+            </div> -->
 
             <div class="form-control">
                 <label for="price">Price</label>

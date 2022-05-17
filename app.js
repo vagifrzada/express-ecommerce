@@ -7,6 +7,17 @@ const session = require("express-session")
 const mongoose = require("mongoose")
 const csrf = require("csurf")
 const flash = require("connect-flash")
+const multer = require("multer")
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "./public/uploads")
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9)
+        cb(null, uniqueSuffix + path.extname(file.originalname))
+    },
+})
 
 const PORT = process.env.PORT || 3000
 const errorController = require("./controllers/error")
@@ -37,6 +48,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Registering middleware for serving static files e.g assets
 app.use(express.static(path.join(__dirname, "public")))
 
+// Using multer
+app.use(multer({ storage }).single("image"))
+
 // Enable CSRF protection
 app.use(csrf())
 
@@ -55,7 +69,7 @@ app.use("/auth", require("./routes/auth"))
 // Registering error handler
 app.use(errorController.getNotFoundPage)
 app.use((err, req, res, next) => {
-    return res.render("errors/500", {
+    return res.status(500).render("errors/500", {
         title: "Server error",
         message: err.message,
     })
