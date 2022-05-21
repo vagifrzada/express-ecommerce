@@ -7,6 +7,7 @@ const session = require("express-session")
 const mongoose = require("mongoose")
 const csrf = require("csurf")
 const flash = require("connect-flash")
+const fileUpload = require("express-fileupload")
 
 const PORT = process.env.PORT || 3000
 const errorController = require("./controllers/error")
@@ -25,6 +26,17 @@ app.use(
             uri: process.env.DB_URL,
             collection: process.env.SESSION_COLLECTION || "sessions",
         }),
+    })
+)
+
+// Enable multipart-formdata
+app.use(
+    fileUpload({
+        limits: {
+            fileSize: 1024 * 1024, // 1 MB
+        },
+        abortOnLimit: true,
+        createParentPath: true,
     })
 )
 
@@ -55,7 +67,7 @@ app.use("/auth", require("./routes/auth"))
 // Registering error handler
 app.use(errorController.getNotFoundPage)
 app.use((err, req, res, next) => {
-    return res.render("errors/500", {
+    return res.status(500).render("errors/500", {
         title: "Server error",
         message: err.message,
     })

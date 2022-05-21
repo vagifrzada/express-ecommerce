@@ -17,7 +17,7 @@ exports.create = (req, res) => {
 
 exports.store = async (req, res) => {
     try {
-        await ProductService.createProduct(req.body, req.user)
+        await ProductService.createProduct(req)
     } catch (err) {
         console.log(err)
         req.flash("error", err.message)
@@ -53,9 +53,8 @@ exports.update = async (req, res) => {
         if (!product) {
             throw new Error("Product not found")
         }
-
         await ProductService.checkAuthor(product, req.user)
-        await ProductService.updateProduct(product, req.body)
+        await ProductService.updateProduct(product, req)
         return res.redirect(`/admin/products/${product._id}/edit`)
     } catch (err) {
         console.log(err)
@@ -71,7 +70,7 @@ exports.delete = async (req, res) => {
             throw new Error("Product not found !")
         }
         await ProductService.checkAuthor(product, req.user)
-        await product.deleteOne({ _id: product._id })
+        await ProductService.destroy(product)
         return res.redirect("/admin/products")
     } catch (err) {
         console.log(err)
