@@ -7,17 +7,7 @@ const session = require("express-session")
 const mongoose = require("mongoose")
 const csrf = require("csurf")
 const flash = require("connect-flash")
-const multer = require("multer")
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "./public/uploads")
-    },
-    filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9)
-        cb(null, uniqueSuffix + path.extname(file.originalname))
-    },
-})
+const fileUpload = require("express-fileupload")
 
 const PORT = process.env.PORT || 3000
 const errorController = require("./controllers/error")
@@ -39,6 +29,17 @@ app.use(
     })
 )
 
+// Enable multipart-formdata
+app.use(
+    fileUpload({
+        limits: {
+            fileSize: 1024 * 1024, // 1 MB
+        },
+        abortOnLimit: true,
+        createParentPath: true,
+    })
+)
+
 // Setting view engine
 app.set("view engine", "ejs")
 // app.set("views", "views")
@@ -47,9 +48,6 @@ app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({ extended: true }))
 // Registering middleware for serving static files e.g assets
 app.use(express.static(path.join(__dirname, "public")))
-
-// Using multer
-app.use(multer({ storage }).single("image"))
 
 // Enable CSRF protection
 app.use(csrf())

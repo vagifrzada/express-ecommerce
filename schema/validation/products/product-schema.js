@@ -1,15 +1,21 @@
 const { body } = require("express-validator")
 
-const validateImage = (value, { req }) => {
-    const file = req.file
-    if (!file) {
+const validateProductImage = (value, { req }) => {
+    const files = req.files
+    const hasImage = files && files.image
+    const isEditingState = req.params.productId !== undefined
+
+    if (isEditingState && !hasImage) {
+        return true // Skip the validation for editing state
+    }
+
+    if (!isEditingState && !hasImage) {
         return false
     }
 
     const validFileTypes = ["image/png", "image/jpeg", "image/jpg", "image/gif"]
-
-    if (!validFileTypes.includes(file.mimetype)) {
-        throw new Error(`File is not a valid image.`)
+    if (!validFileTypes.includes(files.image.mimetype)) {
+        throw new Error("File is not a valid image.")
     }
 
     return true
@@ -24,8 +30,8 @@ module.exports = [
         .withMessage("Name length should be minimum 5 characters long"),
 
     body("image")
-        .custom(validateImage)
-        .withMessage("Please provide valid image"),
+        .custom(validateProductImage)
+        .withMessage("Attached file is not a valid image"),
 
     body("price")
         .notEmpty()

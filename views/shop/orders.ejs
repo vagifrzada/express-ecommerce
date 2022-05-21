@@ -12,9 +12,9 @@
         <% if (orders.length <= 0) { %>
             <h1>No orders here for now ...</h1>
         <% } else { %>
-            <ul>
+            <ul class="list-group">
                 <% orders.forEach(order => { %>
-                    <li>
+                    <li class="list-item">
                         <h1>Order id: #<%= order._id %></h1>
                         <ul>
                             <% order.items.forEach(item => { %>

@@ -9,6 +9,12 @@
 <body>
     <%- include("../partials/navigation") %>
     <main>
+        <% if (product.image) { %>
+            <div class="image-view">
+                <img src="/uploads/<%= product.image  %>" alt="<%= product.name %>">
+            </div>
+        <% } %> 
+
         <form class="product-form" action="/admin/products/<%= product._id %>/update" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="<%= csrfToken  %>">
             <div class="form-control">
