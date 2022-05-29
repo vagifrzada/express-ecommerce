@@ -15,7 +15,7 @@
             <ul class="list-group">
                 <% orders.forEach(order => { %>
                     <li class="list-item">
-                        <h1>Order id: #<%= order._id %></h1>
+                        <h1>Order id: #<%= order._id %></h1> (<a href="/invoices/<%= order._id %>" target="_blank">Invoice</a>)
                         <ul>
                             <% order.items.forEach(item => { %>
                                 <li><%= item.product.name %> (<%= item.quantity %>) </li>
