@@ -1,4 +1,8 @@
-const { constants: fsConstants, promises: fsPromise } = require("fs")
+const {
+    constants: fsConstants,
+    promises: fsPromise,
+    createReadStream,
+} = require("fs")
 const path = require("path")
 
 async function download(req, res) {
@@ -14,14 +18,15 @@ async function download(req, res) {
 
     try {
         await fsPromise.access(invoiceFilePath, fsConstants.R_OK) // Check if file exists
-        const data = await fsPromise.readFile(invoiceFilePath)
-        return res
+        // const data = await fsPromise.readFile(invoiceFilePath)
+        const readStream = createReadStream(invoiceFilePath)
+        const writeStream = res
             .setHeader("Content-Type", "application/pdf")
             .setHeader(
                 "Content-Disposition",
                 `attachment; filename="${invoiceFileName}"`
             )
-            .send(data)
+        return readStream.pipe(writeStream)
     } catch (err) {
         throw err
     }
