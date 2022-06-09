@@ -45,7 +45,7 @@ app.set("view engine", "ejs")
 // app.set("views", "views")
 
 // Parsing body as urlencoded (form data)
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: false }))
 // Registering middleware for serving static files e.g assets
 app.use(express.static(path.join(__dirname, "public")))
 
