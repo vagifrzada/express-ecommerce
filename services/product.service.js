@@ -2,14 +2,14 @@ const path = require("path")
 const fs = require("fs").promises
 const Product = require("../models/product")
 const UploadService = require("../services/upload.service")
-
 const PRODUCTS_UPLOAD_DIR = "/public/uploads"
 
-async function getAll(user) {
-    // const products = await Product.find().select("-__v").populate("userId", "-__v");
-    // select("title price -_id")
-    return await Product.find({ userId: user }).populate("userId")
-}
+// async function getAll(user) {
+//     // const products = await Product.find().select("-__v").populate("userId", "-__v");
+//     // select("title price -_id"
+
+//     return await Product.find({ userId: user }).populate("userId")
+// }
 
 async function updateProduct(product, { body, files }) {
     const { name, price, description } = body
@@ -90,7 +90,7 @@ async function checkAuthor(product, user) {
 }
 
 module.exports = {
-    getAll,
+    // getAll,
     createProduct,
     updateProduct,
     checkAuthor,

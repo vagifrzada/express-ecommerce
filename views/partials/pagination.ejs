@@ -1,0 +1,14 @@
+<% if (pagination) { %> 
+    <!-- Pagination -->
+    <section class="pagination">
+        <% if (pagination.hasPrevious) { %> 
+            <a href="?page=<%= pagination.previousPage %>">⬅️</a>
+        <% } %>
+        <% if (pagination.hasNext) { %> 
+            <a href="?page=<%= pagination.nextPage %>">➡️</a>
+        <% } %>
+        <% if (pagination.currentPage !== pagination.lastPage) { %> 
+            <a href="?page=<%= pagination.lastPage %>">X</a>
+        <% } %> 
+    </section>
+<% } %> 
