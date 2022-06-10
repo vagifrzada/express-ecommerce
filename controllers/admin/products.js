@@ -75,16 +75,16 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        const productId = req.body.productId
+        const productId = req.params.productId
         const product = await Product.findById(productId)
         if (!product) {
             throw new Error("Product not found !")
         }
         await ProductService.checkAuthor(product, req.user)
         await ProductService.destroy(product)
-        return res.redirect("/admin/products")
+        return res.status(200).json({ status: 200, message: "Product deleted" })
     } catch (err) {
         console.log(err)
-        return res.redirect("/404")
+        return res.status(500).json({ status: 500, message: err.message })
     }
 }
