@@ -1,11 +1,22 @@
 const Product = require("../../models/product")
 const ProductService = require("../../services/product.service")
+const { paginate } = require("../../utils/paginator")
 
 exports.index = async (req, res) => {
-    const products = await ProductService.getAll(req.user)
+    const pagination = paginate({
+        page: req.query.page || 1,
+        perPage: 2,
+        totalItems: await Product.count(),
+    })
+
+    const products = await Product.find({ userId: req.user })
+        .populate("userId")
+        .setOptions(pagination.options)
+
     return res.render("admin/products", {
         title: "Admin products",
         products,
+        pagination,
     })
 }
 
