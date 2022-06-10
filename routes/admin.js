@@ -11,7 +11,7 @@ const productValidationSchema = require("../schema/validation/products/product-s
 router.get("/products", productsController.index)
 router.get("/products/create", productsController.create)
 router.get("/products/:productId/edit", productsController.edit)
-router.post("/products/delete", productsController.delete)
+router.delete("/products/:productId", productsController.delete)
 router.post(
     "/products",
     validate(productValidationSchema),
