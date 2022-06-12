@@ -1,16 +1,11 @@
-function calculateTotalPrice(product) {
-    return parseFloat(product.price) * +product.quantity
-}
+async function calculateTotalPrice(cart) {
+    const totalPrice = cart.items.reduce((sum, item) => {
+        return sum + item.quantity * item.product.price
+    }, 0)
 
-function calculateTotalPriceOfProducts(products) {
-    const totalPrice = products.reduce((prev, curr) => {
-        return prev + calculateTotalPrice(curr);
-    }, 0);
-
-    return parseFloat(totalPrice.toFixed(2));
+    return parseFloat(totalPrice.toFixed(2))
 }
 
 module.exports = {
     calculateTotalPrice,
-    calculateTotalPriceOfProducts
 }
