@@ -22,16 +22,16 @@
                 <% }) %> 
             </ul>
 
-            <h3>Total: $<%= totalPrice %> </h3>
-
-            <form action="/orders" method="POST">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <button type="submit" class="btn">Order now !</button>
-            </form>
+            <div class="checkout">
+                <input type="hidden" value="<%= csrfToken %>" name="_csrf">
+                <button class="btn" id="checkout-btn">Checkout !</button>
+            </div>
         <% } else { %> 
             <h1>Cart is empty.</h1>
         <% } %> 
     </main>
     <%- include("../partials/footer") %> 
+
+    <script src="/js/checkout.js"></script>
 </body>
 </html>
