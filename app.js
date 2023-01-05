@@ -8,6 +8,7 @@ const mongoose = require("mongoose")
 const csrf = require("csurf")
 const flash = require("connect-flash")
 const fileUpload = require("express-fileupload")
+const helmet = require("helmet")
 
 const PORT = process.env.PORT || 3000
 const errorController = require("./controllers/error")
@@ -39,6 +40,8 @@ app.use(
         createParentPath: true,
     })
 )
+
+app.use(helmet()) // Adds headers to response for security wise
 
 // Setting view engine
 app.set("view engine", "ejs")
