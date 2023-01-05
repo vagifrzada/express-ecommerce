@@ -7,9 +7,6 @@ exports.index = async (req, res, next) => {
         perPage: 2,
         totalItems: await Product.count(),
     })
-
-    console.log("Pagination data", data)
-
     const products = await Product.find().setOptions(data.options)
     return res.render("shop/index", {
         title: "Shop page",
