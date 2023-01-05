@@ -26,9 +26,11 @@
         "helmet": "^6.0.1",
         "mongodb": "^4.4.0",
         "mongoose": "^6.2.7",
+        "morgan": "^1.10.0",
         "mysql2": "^2.3.3",
         "nodemailer": "^6.7.3",
         "pdfkit": "^0.13.0",
+        "rotating-file-stream": "^3.0.4",
         "sequelize": "^6.16.0",
         "stripe": "^9.8.0",
         "uuid": "^8.3.2"

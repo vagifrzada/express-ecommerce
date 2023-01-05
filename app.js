@@ -2,6 +2,7 @@ require("dotenv").config()
 const path = require("path")
 const express = require("express")
 const app = express()
+const morgan = require("morgan")
 const bodyParser = require("body-parser")
 const session = require("express-session")
 const mongoose = require("mongoose")
@@ -9,6 +10,7 @@ const csrf = require("csurf")
 const flash = require("connect-flash")
 const fileUpload = require("express-fileupload")
 const helmet = require("helmet")
+// const rfs = require("rotating-file-stream")
 
 const PORT = process.env.PORT || 3000
 const errorController = require("./controllers/error")
@@ -29,6 +31,23 @@ app.use(
         }),
     })
 )
+
+// Create a log stream
+// const rfsStream = rfs.createStream(process.env.LOG_FILE, {
+//     size: "1M", // rotate every 10 MB written
+//     interval: "1m", // rotate daily
+//     // path: "./storage/logs",
+//     // compress: "gzip", // compress rotated files
+// })
+
+// app.use(
+//     morgan(process.env.LOG_FORMAT, {
+//         stream: rfsStream,
+//     })
+// )
+
+// Logging to console
+app.use(morgan(process.env.LOG_FORMAT))
 
 // Enable multipart-formdata
 app.use(
