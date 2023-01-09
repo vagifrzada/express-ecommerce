@@ -34,16 +34,17 @@ app.use(
 )
 
 // Create a log stream
-const logFileName = `log-${moment().format("YYYY-MM-DD")}.txt`
-const logStream = fs.createWriteStream(
-    path.join(__dirname, "storage", "logs", logFileName)
-)
-
-app.use(
-    morgan(process.env.LOG_FORMAT, {
-        stream: logStream,
-    })
-)
+if (process.env.LOG_TO_FILE === "true") {
+    const logFileName = `log-${moment().format("YYYY-MM-DD")}.txt`
+    const logStream = fs.createWriteStream(
+        path.join(__dirname, "storage", "logs", logFileName)
+    )
+    app.use(
+        morgan(process.env.LOG_FORMAT, {
+            stream: logStream,
+        })
+    )
+}
 
 // Logging to console
 app.use(morgan(process.env.LOG_FORMAT))
