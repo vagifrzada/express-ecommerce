@@ -37,7 +37,8 @@ app.use(
 if (process.env.LOG_TO_FILE === "true") {
     const logFileName = `log-${moment().format("YYYY-MM-DD")}.txt`
     const logStream = fs.createWriteStream(
-        path.join(__dirname, "storage", "logs", logFileName)
+        path.join(__dirname, "storage", "logs", logFileName),
+        { flags: "a" }
     )
     app.use(
         morgan(process.env.LOG_FORMAT, {
