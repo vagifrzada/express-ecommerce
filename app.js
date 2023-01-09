@@ -1,5 +1,6 @@
 require("dotenv").config()
 const express = require("express")
+// const https = require("https")
 const app = express()
 const morgan = require("morgan")
 const bodyParser = require("body-parser")
@@ -12,6 +13,17 @@ const moment = require("moment")
 const helmet = require("helmet")
 const path = require("path")
 const fs = require("fs")
+
+// Certificates
+// const privateKey = fs.readFileSync(
+//     path.join(__dirname, "cert", "server.key"),
+//     "utf-8"
+// )
+
+// const certificate = fs.readFileSync(
+//     path.join(__dirname, "cert", "server.cert"),
+//     "utf-8"
+// )
 
 const PORT = process.env.PORT || 3000
 const errorController = require("./controllers/error")
@@ -98,6 +110,15 @@ app.use((err, req, res, next) => {
 ;(async () => {
     try {
         await mongoose.connect(process.env.DB_URL)
+
+        // Creating https server manually
+        // const server = https.createServer(
+        //     {
+        //         key: privateKey,
+        //         cert: certificate,
+        //     },
+        //     app
+        // )
         app.listen(PORT, () =>
             console.log(`Waiting for requests or port ${PORT}...`)
         )

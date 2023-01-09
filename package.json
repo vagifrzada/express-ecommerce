@@ -4,7 +4,8 @@
     "description": "Exploring Express.js",
     "main": "app.js",
     "scripts": {
-        "start": "nodemon app.js"
+        "start": "nodemon app.js",
+        "make:certificate": "openssl req -nodes -new -x509 -newkey rsa:4096 -keyout cert/server.key -out cert/server.cert"
     },
     "author": "Vagif Rufullazada",
     "license": "MIT",
